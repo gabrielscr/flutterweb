@@ -17,6 +17,7 @@ class MenuPageState extends State<MenuPage>
   bool isCollapsed = false;
   AnimationController _animationController;
   Animation<double> widthAnimation;
+  int currentSelectedIndex = 0;
 
   @override
   void initState() {
@@ -44,7 +45,7 @@ class MenuPageState extends State<MenuPage>
               title: 'Gabriel Rocha',
               icon: Icons.person,
               animationController: _animationController),
-              Divider(color: Colors.grey, height: 40.0),
+          Divider(color: Colors.grey, height: 40.0),
           Expanded(
             child: ListView.separated(
               separatorBuilder: (context, counter) {
@@ -52,6 +53,12 @@ class MenuPageState extends State<MenuPage>
               },
               itemBuilder: (context, counter) {
                 return MenuListTile(
+                    onTap: () {
+                      setState(() {
+                       currentSelectedIndex = counter; 
+                      });
+                    },
+                    isSelected: currentSelectedIndex == counter,
                     title: menuNavigationItems[counter].title,
                     icon: menuNavigationItems[counter].icon,
                     animationController: _animationController);
